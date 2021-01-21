@@ -35,6 +35,10 @@ const propTypes = {
 
     // Callback to fire when a file is dropped on the text input
     onDrop: PropTypes.func,
+
+    // Disable sequential input navigation (e.g., the up & down arrow on iOS Safari)
+    // https://github.com/Expensify/Expensify.cash/issues/1228
+    disableTab: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -46,6 +50,7 @@ const defaultProps = {
     onDragEnter: () => {},
     onDragLeave: () => {},
     onDrop: () => {},
+    disableTab: false,
 };
 
 /**
@@ -85,6 +90,12 @@ class TextInputFocusable extends React.Component {
             this.textInput.addEventListener('dragleave', this.props.onDragLeave);
             this.textInput.addEventListener('drop', this.props.onDrop);
             this.textInput.addEventListener('paste', this.checkForAttachment.bind(this));
+        }
+
+        if (this.textInput && this.props.disableTab) {
+            this.textInput.setNativeProps({
+                tabIndex: -1,
+            });
         }
     }
 

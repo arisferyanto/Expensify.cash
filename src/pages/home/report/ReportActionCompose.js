@@ -205,6 +205,7 @@ class ReportActionCompose extends React.Component {
                                     onPasteFile={file => displayFileInModal({file})}
                                     shouldClear={this.state.textInputShouldClear}
                                     onClear={() => this.setTextInputShouldClear(false)}
+                                    disableTab
                                 />
 
                             </>
